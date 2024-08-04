@@ -6,13 +6,15 @@ import (
 	findnumber "github.com/abhishekamralkar/numInList"
 )
 
+type testCase struct {
+	name     string
+	input    []int
+	search   int
+	expected bool
+}
+
 func TestFindNumber(t *testing.T) {
-	tests := []struct {
-		name     string
-		input    []int
-		search   int
-		expected bool
-	}{
+	testcases := []testCase{
 		{"Number exists in slice", []int{1, 2, 3, 4, 5}, 3, true},
 		{"Number does not exist in slice", []int{1, 2, 3, 4, 5}, 6, false},
 		{"Empty slice", []int{}, 1, false},
@@ -22,11 +24,11 @@ func TestFindNumber(t *testing.T) {
 		{"Large slice", make([]int, 100000), 99999, false},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := findnumber.FindNumber(tt.input, tt.search)
-			if result != tt.expected {
-				t.Errorf("FindNumber(%v, %d) = %v; want %v", tt.input, tt.search, result, tt.expected)
+	for _, tc := range testcases {
+		t.Run(tc.name, func(t *testing.T) {
+			result := findnumber.FindNumber(tc.input, tc.search)
+			if result != tc.expected {
+				t.Errorf("FindNumber(%v, %d) = %v; want %v", tc.input, tc.search, result, tc.expected)
 			}
 		})
 	}
